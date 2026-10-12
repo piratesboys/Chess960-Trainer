@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tournaments | Chess960 Universe Elite</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .tournament-section {
+            padding-top: 20px;
+        }
+
+        .tournament-category {
+            margin: 35px 0 20px;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .tournament-status {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 5px 10px;
+            border: 1px solid #e8e8e8;
+            border-radius: 5px;
+            color: #555555;
+            font-size: 0.85rem;
+        }
+
+        .tournament-card .button {
+            margin-top: auto;
+        }
+
+        .tournament-card h3 {
+            overflow-wrap: anywhere;
+        }
+
+        .tournament-message {
+            max-width: 900px;
+            margin: 0 auto 25px;
+            padding: 18px 22px;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            background: #f8f8f8;
+            color: #666666;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .tournament-refresh {
+            display: block;
+            margin: 0 auto 30px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .tournament-refresh:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        @media (max-width: 600px) {
+            .tournament-category {
+                margin-top: 28px;
+            }
+
+            .tournament-message {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <nav class="top-nav">
+
+        <a href="indexteam.html" class="logo">
+            Chess960 Universe Elite
+        </a>
+
+        <div class="nav-links">
+            <a href="indexteam.html">Home</a>
+            <a href="courses.html">Courses</a>
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <header class="hero">
+
+        <h2>Our Tournaments</h2>
+
+        <p class="hero-text">
+            Follow the tournaments associated with Chess960 Universe Elite.
+            Discover ongoing competitions, upcoming events, and completed
+            tournaments on Lichess.
+        </p>
+
+        <a
+            href="https://lichess.org/team/chess960-universe-elite"
+            class="card-link"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Visit Our Lichess Team
+        </a>
+
+    </header>
+
+
+    <main>
+
+        <!-- TOURNAMENT INFORMATION -->
+
+        <section class="section">
+
+            <h2>Competition Center</h2>
+
+            <p class="section-description">
+                Tournament information is loaded from the Lichess team API.
+            </p>
+
+            <div class="tournament-message" id="tournamentInfo" role="status">
+                Loading tournament information...
+            </div>
+
+            <button
+                type="button"
+                class="button tournament-refresh"
+                id="refreshTournaments"
+            >
+                Refresh Tournaments
+            </button>
+
+        </section>
+
+
+        <!-- ARENA TOURNAMENTS -->
+
+        <section class="section tournament-section">
+
+            <h2>Arena Tournaments</h2>
+
+            <p class="section-description">
+                Arena tournaments are fast-paced competitions where
+                players compete to score points during a set period.
+            </p>
+
+            <h3 class="tournament-category">In Progress</h3>
+
+            <div class="cards" id="arenaCurrent" aria-live="polite">
+                <article class="card">
+                    <p>Loading current Arena tournaments...</p>
+                </article>
+            </div>
+
+
+            <h3 class="tournament-category">Upcoming</h3>
+
+            <div class="cards" id="arenaUpcoming" aria-live="polite">
+                <article class="card">
+                    <p>Loading upcoming Arena tournaments...</p>
+                </article>
+            </div>
+
+
+            <h3 class="tournament-category">Finished</h3>
+
+            <div class="cards" id="arenaFinished" aria-live="polite">
+                <article class="card">
+                    <p>Loading finished Arena tournaments...</p>
+                </article>
+            </div>
+
+        </section>
+
+
+        <!-- SWISS TOURNAMENTS -->
+
+        <section class="section tournament-section">
+
+            <h2>Swiss Tournaments</h2>
+
+            <p class="section-description">
+                Swiss tournaments pair players over multiple rounds,
+                usually against opponents with similar scores.
+            </p>
+
+            <h3 class="tournament-category">In Progress</h3>
+
+            <div class="cards" id="swissCurrent" aria-live="polite">
+                <article class="card">
+                    <p>Loading current Swiss tournaments...</p>
+                </article>
+            </div>
+
+
+            <h3 class="tournament-category">Upcoming</h3>
+
+            <div class="cards" id="swissUpcoming" aria-live="polite">
+                <article class="card">
+                    <p>Loading upcoming Swiss tournaments...</p>
+                </article>
+            </div>
+
+
+            <h3 class="tournament-category">Finished</h3>
+
+            <div class="cards" id="swissFinished" aria-live="polite">
+                <article class="card">
+                    <p>Loading finished Swiss tournaments...</p>
+                </article>
+            </div>
+
+        </section>
+
+
+        <!-- JOIN THE TEAM -->
+
+        <section class="section">
+
+            <h2>Join the Competition</h2>
+
+            <p class="section-description">
+                Join Chess960 Universe Elite on Lichess to connect
+                with the community and follow its chess activities.
+            </p>
+
+            <div style="text-align: center;">
+                <a
+                    href="https://lichess.org/team/chess960-universe-elite"
+                    class="button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Join Our Team
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- TEAM GIF -->
+
+    <div class="team-gif">
+        <img
+            src="https://i.imgur.com/BH4KzL2.gif"
+            alt="Chess960 Universe Elite team banner"
+            loading="lazy"
+        >
+    </div>
+
+
+    <!-- TOURNAMENT SCRIPT -->
+
+    <script src="tournaments.js"></script>
+
+    <script>
+        const refreshButton =
+            document.getElementById("refreshTournaments");
+
+        const info =
+            document.getElementById("tournamentInfo");
+
+        refreshButton.addEventListener("click", async () => {
+            refreshButton.disabled = true;
+            refreshButton.textContent = "Refreshing...";
+            info.textContent = "Refreshing tournament information...";
+
+            try {
+                await Promise.all([
+                    loadArena(),
+                    loadSwiss()
+                ]);
+
+                info.textContent =
+                    "Tournament information has been refreshed. " +
+                    "If a section shows an error, try again later.";
+            } catch (error) {
+                info.textContent =
+                    "Some tournament information could not be refreshed.";
+            } finally {
+                refreshButton.disabled = false;
+                refreshButton.textContent = "Refresh Tournaments";
+            }
+        });
+    </script>
+
+</body>
+</html>

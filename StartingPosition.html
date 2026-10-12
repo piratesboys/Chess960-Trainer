@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Learn how to evaluate a Chess960 starting position and find your first plan.">
+
+    <title>Understand the Starting Position | Chess960 Trainer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="top-nav">
+        <a href="index.html" class="logo">Chess960 Trainer</a>
+
+        <div class="nav-links">
+            <a href="courses.html">Courses</a>
+            <a href="indexteam.html">Community</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <p class="lesson-number">COURSE 01 · BEGINNER</p>
+        <h2>Understand the Starting Position</h2>
+
+        <p class="hero-text">
+            Before making your first move, learn to read the position,
+            identify your pieces' needs and discover a plan.
+        </p>
+
+        <a href="#lesson-content" class="card-link">
+            Start Learning ↓
+        </a>
+    </header>
+
+    <main id="lesson-content">
+
+        <!-- Introduction -->
+
+        <section class="section lesson-section">
+            <h2>1. Think Before You Move</h2>
+
+            <p>
+                In Chess960, also known as Fischer Random Chess,
+                the pieces on the back rank start in a randomized
+                arrangement. The pawns remain on their usual squares.
+            </p>
+
+            <p>
+                This means that you cannot rely on the same opening
+                setups as in standard chess. Instead, you should
+                examine the position in front of you and decide
+                which pieces need attention first.
+            </p>
+
+            <div class="info-panel">
+                <h3>The key principle</h3>
+                <p>
+                    Don't play a move just because it looks familiar.
+                    First, understand what your position requires.
+                </p>
+            </div>
+        </section>
+
+        <!-- Chessboard -->
+
+        <section class="section lesson-section">
+            <h2>2. Study This Starting Position</h2>
+
+            <p class="section-description">
+                Here is an example of a valid Chess960 starting position.
+                White is at the bottom of the board.
+            </p>
+
+            <div class="chessboard-container">
+                <div class="chessboard" role="img"
+                     aria-label="Chess960 starting position. White and black have bishops on a and f, knights on b and h, rooks on c and e, king on d, and queen on g.">
+
+                    <!-- Rank 8 -->
+                    <div class="square light">♝</div>
+                    <div class="square dark">♞</div>
+                    <div class="square light">♜</div>
+                    <div class="square dark">♚</div>
+                    <div class="square light">♜</div>
+                    <div class="square dark">♝</div>
+                    <div class="square light">♛</div>
+                    <div class="square dark">♞</div>
+
+                    <!-- Rank 7 -->
+                    <div class="square dark">♟</div>
+                    <div class="square light">♟</div>
+                    <div class="square dark">♟</div>
+                    <div class="square light">♟</div>
+                    <div class="square dark">♟</div>
+                    <div class="square light">♟</div>
+                    <div class="square dark">♟</div>
+                    <div class="square light">♟</div>
+
+                    <!-- Rank 6 -->
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+
+                    <!-- Rank 5 -->
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+
+                    <!-- Rank 4 -->
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+
+                    <!-- Rank 3 -->
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+
+                    <!-- Rank 2 -->
+                    <div class="square light">♙</div>
+                    <div class="square dark">♙</div>
+                    <div class="square light">♙</div>
+                    <div class="square dark">♙</div>
+                    <div class="square light">♙</div>
+                    <div class="square dark">♙</div>
+                    <div class="square light">♙</div>
+                    <div class="square dark">♙</div>
+
+                    <!-- Rank 1 -->
+                    <div class="square dark">♗</div>
+                    <div class="square light">♘</div>
+                    <div class="square dark">♖</div>
+                    <div class="square light">♔</div>
+                    <div class="square dark">♖</div>
+                    <div class="square light">♗</div>
+                    <div class="square dark">♕</div>
+                    <div class="square light">♘</div>
+                </div>
+
+                <p class="board-caption">
+                    Example position · White to move
+                </p>
+            </div>
+
+            <p>
+                Notice that the king is between the two rooks,
+                and the bishops start on opposite-colored squares.
+                These are essential features of a valid Chess960
+                starting position.
+            </p>
+        </section>
+
+        <!-- Four-step method -->
+
+        <section class="section lesson-section">
+            <h2>3. Your Four-Step Checklist</h2>
+
+            <div class="lesson-steps">
+
+                <article class="lesson-step">
+                    <p class="lesson-number">STEP 01</p>
+                    <h3>Check Your Pieces</h3>
+                    <p>
+                        Which pieces have clear paths? Which bishops
+                        or rooks are blocked by other pieces?
+                        Identify the pieces that may need help.
+                    </p>
+                </article>
+
+                <article class="lesson-step">
+                    <p class="lesson-number">STEP 02</p>
+                    <h3>Find Useful Pawn Moves</h3>
+                    <p>
+                        Look for pawn moves that open lines for your
+                        bishops or queen. Consider what each move
+                        leaves behind or weakens.
+                    </p>
+                </article>
+
+                <article class="lesson-step">
+                    <p class="lesson-number">STEP 03</p>
+                    <h3>Look for Tactical Problems</h3>
+                    <p>
+                        Check for immediate threats, undefended
+                        pieces and possible captures. Never assume
+                        a move is safe without checking your opponent's reply.
+                    </p>
+                </article>
+
+                <article class="lesson-step">
+                    <p class="lesson-number">STEP 04</p>
+                    <h3>Choose a First Plan</h3>
+                    <p>
+                        Decide which piece you want to develop,
+                        which squares you want to control and
+                        how you might prepare your king's safety.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Common mistakes -->
+
+        <section class="section lesson-section">
+            <h2>4. Common Mistakes</h2>
+
+            <div class="lesson-mistakes">
+                <div>
+                    <h3>Following a memorized opening</h3>
+                    <p>
+                        A familiar opening move may not fit your
+                        randomized position. Evaluate the actual
+                        position instead.
+                    </p>
+                </div>
+
+                <div>
+                    <h3>Moving pieces without a purpose</h3>
+                    <p>
+                        Each move should help development, control
+                        important squares, improve king safety
+                        or respond to a concrete threat.
+                    </p>
+                </div>
+
+                <div>
+                    <h3>Ignoring the opponent</h3>
+                    <p>
+                        Before playing, ask what your opponent
+                        could do in response. Your plan must
+                        account for their threats too.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive quiz -->
+
+        <section class="section lesson-section">
+            <h2>5. Test Your Knowledge</h2>
+
+            <p class="section-description">
+                Answer all three questions to check what you have learned.
+            </p>
+
+            <form id="quiz-form" class="lesson-quiz">
+
+                <fieldset class="quiz-question">
+                    <legend>
+                        1. What is the best first step in a Chess960 game?
+                    </legend>
+
+                    <label>
+                        <input type="radio" name="q1" value="a" required>
+                        Play your favorite standard chess opening.
+                    </label>
+
+                    <label>
+                        <input type="radio" name="q1" value="b">
+                        Examine the position and identify your pieces' needs.
+                    </label>
+
+                    <label>
+                        <input type="radio" name="q1" value="c">
+                        Move your queen immediately.
+                    </label>
+                </fieldset>
+
+                <fieldset class="quiz-question">
+                    <legend>
+                        2. Where must the king start in Chess960?
+                    </legend>
+
+                    <label>
+                        <input type="radio" name="q2" value="a" required>
+                        Always on the e-file.
+                    </label>
+
+                    <label>
+                        <input type="radio" name="q2" value="b">
+                        On either side of both rooks.
+                    </label>
+
+                    <label>
+                        <input type="radio" name="q2" value="c">
+                        Somewhere between the two rooks.
+                    </label>
+                </fieldset>
+
+                <fieldset class="quiz-question">
+                    <legend>
+                        3. What should you consider before moving a pawn?
+                    </legend>
+
+                    <label>
+                        <input type="radio" name="q3" value="a" required>
+                        Which lines it opens and which squares it weakens.
+                    </label>
+
+                    <label>
+                        <input type="radio" name="q3" value="b">
+                        Only how far the pawn can advance.
+                    </label>
+
+                    <label>
+                        <input type="radio" name="q3" value="c">
+                        Whether it copies a move from a famous game.
+                    </label>
+                </fieldset>
+
+                <button type="submit" class="quiz-submit">
+                    Check My Answers
+                </button>
+
+                <div id="quiz-result"
+                     class="quiz-result"
+                     role="status"
+                     aria-live="polite"
+                     hidden>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- Summary -->
+
+        <section class="section lesson-section">
+            <div class="info-panel">
+                <h3>Lesson Summary</h3>
+
+                <p>
+                    A strong Chess960 player does not need to memorize
+                    every starting arrangement. The goal is to understand
+                    the position, develop pieces efficiently and choose
+                    a plan based on the position's needs.
+                </p>
+
+                <p>
+                    Practice this four-step checklist in your next game
+                    before making your first move.
+                </p>
+
+                <a href="Development.html" class="card-link">
+                    Next Lesson: Develop Your Pieces →
+                </a>
+
+                <a href="courses.html" class="card-link">
+                    Back to All Courses
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="team-gif">
+        <img
+            src="https://i.imgur.com/BH4KzL2.gif"
+            alt="Welcome to our Chess960 community"
+        >
+    </div>
+
+    <script>
+        const quizForm = document.getElementById("quiz-form");
+        const quizResult = document.getElementById("quiz-result");
+
+        const correctAnswers = {
+            q1: "b",
+            q2: "c",
+            q3: "a"
+        };
+
+        const explanations = {
+            q1: "Start by examining the position and finding which pieces need attention.",
+            q2: "In a valid Chess960 starting position, the king begins between the two rooks.",
+            q3: "Pawn moves can open lines, but they can also create weaknesses."
+        };
+
+        quizForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(quizForm);
+            let score = 0;
+            let feedback = [];
+
+            for (const question in correctAnswers) {
+                if (formData.get(question) === correctAnswers[question]) {
+                    score++;
+                } else {
+                    feedback.push(explanations[question]);
+                }
+            }
+
+            quizResult.hidden = false;
+
+            if (score === 3) {
+                quizResult.innerHTML =
+                    "<h3>Excellent! 3/3</h3>" +
+                    "<p>You understand the fundamentals. You are ready for the next lesson.</p>";
+            } else {
+                quizResult.innerHTML =
+                    "<h3>Your score: " + score + "/3</h3>" +
+                    "<p>Review these points and try again:</p>" +
+                    "<ul>" +
+                    feedback.map(function (item) {
+                        return "<li>" + item + "</li>";
+                    }).join("") +
+                    "</ul>";
+            }
+
+            quizResult.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
+            });
+        });
+    </script>
+
+</body>
+</html>

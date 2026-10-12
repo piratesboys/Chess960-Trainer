@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Discover the members of Chess960 Universe Elite on Lichess."
+    >
+
+    <title>Members | Chess960 Trainer</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Members page */
+
+        .members-intro {
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .members-stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            max-width: 600px;
+            margin: 35px auto;
+        }
+
+        .members-stat {
+            padding: 24px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .members-stat h2 {
+            margin: 0 0 8px;
+            font-size: 32px;
+        }
+
+        .members-stat p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .members-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 30px 0 20px;
+        }
+
+        .members-toolbar h2 {
+            margin: 0;
+        }
+
+        .members-search {
+            width: 100%;
+            max-width: 320px;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font: inherit;
+            background: #fff;
+            color: #111;
+        }
+
+        .members-search:focus {
+            outline: 2px solid #111;
+            outline-offset: 2px;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .member-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+            padding: 18px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            color: #111;
+            text-decoration: none;
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .member-card:hover {
+            border-color: #999;
+            transform: translateY(-2px);
+        }
+
+        .member-avatar {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .member-name {
+            overflow-wrap: anywhere;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .members-message {
+            padding: 30px 20px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            color: #555;
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        .members-status {
+            margin-top: 16px;
+            color: #777;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .members-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .members-button {
+            display: inline-block;
+            padding: 12px 18px;
+            border: 1px solid #111;
+            border-radius: 5px;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .members-button:hover {
+            background: #333;
+        }
+
+        .members-button.secondary {
+            background: #fff;
+            color: #111;
+        }
+
+        .members-button.secondary:hover {
+            background: #f5f5f5;
+        }
+
+        @media (max-width: 800px) {
+            .members-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 520px) {
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .members-stats {
+                gap: 10px;
+            }
+
+            .members-stat {
+                padding: 18px 12px;
+            }
+
+            .members-toolbar {
+                align-items: stretch;
+            }
+
+            .members-search {
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="top-nav">
+        <a href="index.html" class="logo">
+            Chess960 Trainer
+        </a>
+
+        <div class="nav-links">
+            <a href="courses.html">Courses</a>
+            <a href="indexteam.html">Community</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-text">
+
+            <p class="lesson-number">OUR COMMUNITY</p>
+
+            <h1>Meet Our Members</h1>
+
+            <p>
+                Discover the players of Chess960 Universe Elite.
+                Explore the community and connect with fellow Chess960 players.
+            </p>
+
+            <a
+                href="https://lichess.org/team/chess960-universe-elite"
+                class="button"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Visit Our Lichess Team
+            </a>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="section">
+
+            <div class="members-intro">
+                <h2>Our Community</h2>
+
+                <p class="section-description">
+                    This page retrieves the team's public member list from
+                    Lichess. Select a member to open their Lichess profile.
+                </p>
+            </div>
+
+            <div class="members-stats">
+
+                <div class="members-stat">
+                    <h2 id="member-count">—</h2>
+                    <p>Team Members</p>
+                </div>
+
+                <div class="members-stat">
+                    <h2 id="member-status">Loading</h2>
+                    <p>Connection Status</p>
+                </div>
+
+            </div>
+
+            <div class="members-toolbar">
+
+                <h2>Team Directory</h2>
+
+                <input
+                    type="search"
+                    id="member-search"
+                    class="members-search"
+                    placeholder="Search by username..."
+                    aria-label="Search team members by username"
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <div
+                id="members"
+                class="members-grid"
+                aria-live="polite"
+                aria-busy="true"
+            >
+                <div class="members-message">
+                    Loading team members from Lichess...
+                </div>
+            </div>
+
+            <p
+                id="last-update"
+                class="members-status"
+                aria-live="polite"
+            >
+                Connecting to Lichess...
+            </p>
+
+            <div class="members-actions">
+
+                <button
+                    type="button"
+                    class="members-button"
+                    id="refresh-members"
+                >
+                    Refresh Members
+                </button>
+
+                <a
+                    href="https://lichess.org/team/chess960-universe-elite"
+                    class="members-button secondary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Open Team on Lichess
+                </a>
+
+            </div>
+
+        </section>
+
+        <section class="section">
+            <h2>Become Part of the Team</h2>
+
+            <p class="section-description">
+                Interested in Chess960? Visit our Lichess team to learn more
+                about the community and request to join.
+            </p>
+
+            <a
+                href="https://lichess.org/team/chess960-universe-elite"
+                class="button"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Join Chess960 Universe Elite
+            </a>
+        </section>
+
+        <section class="section">
+            <h2>Explore More</h2>
+
+            <div class="cards">
+
+                <article class="card">
+                    <h3>Partners</h3>
+
+                    <p>
+                        Discover other teams and communities connected
+                        with our project.
+                    </p>
+
+                    <a href="Partners.html" class="card-link">
+                        View Partners
+                    </a>
+                </article>
+
+                <article class="card">
+                    <h3>Tournaments</h3>
+
+                    <p>
+                        Find team events and opportunities to compete
+                        in Chess960.
+                    </p>
+
+                    <a href="tournaments.html" class="card-link">
+                        View Tournaments
+                    </a>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div class="team-gif">
+        <img
+            src="https://i.imgur.com/BH4KzL2.gif"
+            alt="Chess960 Universe Elite community animation"
+        >
+    </div>
+
+    <script>
+        /*
+         * ==========================================
+         * CONFIGURATION
+         * ==========================================
+         */
+
+        const API_URL =
+            "https://lichess.org/api/team/chess960-universe-elite/users";
+
+        const UPDATE_INTERVAL = 30000;
+
+        const container = document.getElementById("members");
+        const count = document.getElementById("member-count");
+        const lastUpdate = document.getElementById("last-update");
+        const status = document.getElementById("member-status");
+        const searchInput = document.getElementById("member-search");
+        const refreshButton = document.getElementById("refresh-members");
+
+        let allMembers = [];
+        let isLoading = false;
+
+
+        /*
+         * ==========================================
+         * SAFE MESSAGE DISPLAY
+         * ==========================================
+         */
+
+        function showMessage(message) {
+            const paragraph = document.createElement("p");
+
+            paragraph.className = "members-message";
+            paragraph.textContent = message;
+
+            container.replaceChildren(paragraph);
+        }
+
+
+        /*
+         * ==========================================
+         * DISPLAY MEMBER CARDS
+         * ==========================================
+         */
+
+        function displayMembers() {
+            const searchTerm = searchInput.value
+                .trim()
+                .toLowerCase();
+
+            const filteredMembers = allMembers.filter(member =>
+                member.username.toLowerCase().includes(searchTerm)
+            );
+
+            container.replaceChildren();
+
+            if (filteredMembers.length === 0) {
+                showMessage(
+                    allMembers.length === 0
+                        ? "No members were found for this team."
+                        : "No members match your search."
+                );
+
+                return;
+            }
+
+            const fragment = document.createDocumentFragment();
+
+            filteredMembers.forEach(member => {
+                const card = document.createElement("a");
+
+                card.className = "member-card";
+                card.href =
+                    "https://lichess.org/@" +
+                    encodeURIComponent(member.username);
+
+                card.target = "_blank";
+                card.rel = "noopener noreferrer";
+                card.setAttribute(
+                    "aria-label",
+                    "Open Lichess profile for " + member.username
+                );
+
+                const avatar = document.createElement("img");
+
+                avatar.className = "member-avatar";
+                avatar.alt = "";
+                avatar.loading = "lazy";
+                avatar.src =
+                    "https://lichess1.org/user/" +
+                    encodeURIComponent(member.username) +
+                    "/avatar";
+
+                avatar.onerror = function() {
+                    this.onerror = null;
+                    this.src =
+                        "https://lichess1.org/assets/logo/lichess-favicon-512.png";
+                };
+
+                const name = document.createElement("span");
+
+                name.className = "member-name";
+                name.textContent = member.username;
+
+                card.append(avatar, name);
+                fragment.appendChild(card);
+            });
+
+            container.appendChild(fragment);
+        }
+
+
+        /*
+         * ==========================================
+         * LOAD MEMBERS FROM LICHESS
+         * ==========================================
+         */
+
+        async function loadMembers() {
+            if (isLoading) {
+                return;
+            }
+
+            isLoading = true;
+            refreshButton.disabled = true;
+            refreshButton.textContent = "Refreshing...";
+            container.setAttribute("aria-busy", "true");
+
+            if (allMembers.length === 0) {
+                status.textContent = "Loading";
+                showMessage("Loading team members from Lichess...");
+            }
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: "GET",
+                    cache: "no-store"
+                });
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Lichess returned HTTP " + response.status
+                    );
+                }
+
+                const text = await response.text();
+
+                /*
+                 * Lichess returns JSON Lines:
+                 * one JSON object per line.
+                 */
+
+                const members = text
+                    .split(/\r?\n/)
+                    .filter(line => line.trim() !== "")
+                    .map(line => JSON.parse(line));
+
+                const uniqueMembers = new Map();
+
+                members.forEach(member => {
+                    const username =
+                        member.username ||
+                        member.id ||
+                        member.name;
+
+                    if (username) {
+                        uniqueMembers.set(
+                            username.toLowerCase(),
+                            { username }
+                        );
+                    }
+                });
+
+                allMembers = Array.from(uniqueMembers.values())
+                    .sort((a, b) =>
+                        a.username.localeCompare(
+                            b.username,
+                            undefined,
+                            { sensitivity: "base" }
+                        )
+                    );
+
+                count.textContent = allMembers.length;
+                status.textContent = "Connected";
+
+                displayMembers();
+
+                lastUpdate.textContent =
+                    "Last updated: " +
+                    new Date().toLocaleTimeString();
+
+                console.log(
+                    "Lichess members updated:",
+                    allMembers.length
+                );
+
+            } catch (error) {
+                console.error(
+                    "Unable to load Lichess members:",
+                    error
+                );
+
+                status.textContent = "Unavailable";
+
+                if (allMembers.length > 0) {
+                    /*
+                     * Keep the previously loaded members visible
+                     * if a later refresh fails.
+                     */
+
+                    displayMembers();
+
+                    lastUpdate.textContent =
+                        "Refresh failed. Showing the last loaded member list.";
+
+                } else {
+                    count.textContent = "—";
+
+                    showMessage(
+                        "Unable to load team members. Please try again later."
+                    );
+
+                    lastUpdate.textContent =
+                        "Could not connect to Lichess. Check your connection and try again.";
+                }
+
+            } finally {
+                isLoading = false;
+                refreshButton.disabled = false;
+                refreshButton.textContent = "Refresh Members";
+                container.setAttribute("aria-busy", "false");
+            }
+        }
+
+
+        /*
+         * ==========================================
+         * SEARCH
+         * ==========================================
+         */
+
+        searchInput.addEventListener("input", displayMembers);
+
+
+        /*
+         * ==========================================
+         * MANUAL REFRESH
+         * ==========================================
+         */
+
+        refreshButton.addEventListener("click", loadMembers);
+
+
+        /*
+         * ==========================================
+         * INITIAL LOAD AND AUTOMATIC UPDATES
+         * ==========================================
+         */
+
+        loadMembers();
+
+        setInterval(loadMembers, UPDATE_INTERVAL);
+    </script>
+
+</body>
+</html>
