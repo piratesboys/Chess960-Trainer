@@ -1,4 +1,3 @@
-```javascript
 const TEAM_ID = "chess960-universe-elite";
 
 // =====================================
@@ -313,4 +312,3 @@ function showError(containerId) {
 
 loadArena();
 loadSwiss();
-```
