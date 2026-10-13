@@ -1,21 +1,28 @@
 const TEAM_ID = "chess960-universe-elite";
+const API_URL = `https://lichess.org/api/team/${TEAM_ID}`;
 
 // =====================================
 // GET NDJSON FROM LICHESS
 // =====================================
 
 async function loadNDJSON(url) {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+        cache: "no-store"
+    });
 
     if (!response.ok) {
-        throw new Error("Lichess API error");
+        throw new Error(`Lichess API error: ${response.status}`);
     }
 
     const text = await response.text();
 
+    if (!text.trim()) {
+        return [];
+    }
+
     return text
         .trim()
-        .split("\n")
+        .split(/\r?\n/)
         .filter(line => line.trim() !== "")
         .map(line => JSON.parse(line));
 }
@@ -29,13 +36,10 @@ function formatDate(timestamp) {
         return "Date unknown";
     }
 
-    return new Date(timestamp).toLocaleString(
-        "en-GB",
-        {
-            dateStyle: "medium",
-            timeStyle: "short"
-        }
-    );
+    return new Date(timestamp).toLocaleString("en-GB", {
+        dateStyle: "medium",
+        timeStyle: "short"
+    });
 }
 
 // =====================================
@@ -56,79 +60,68 @@ function formatDuration(seconds) {
     const hours = Math.floor(minutes / 60);
     const remaining = minutes % 60;
 
-    if (remaining === 0) {
-        return `${hours}h`;
-    }
-
-    return `${hours}h ${remaining}min`;
+    return remaining === 0
+        ? `${hours}h`
+        : `${hours}h ${remaining}min`;
 }
 
 // =====================================
-// CREATE CARD
+// CREATE TOURNAMENT CARD
 // =====================================
 
 function createTournamentCard(tournament, type, status) {
     const card = document.createElement("div");
-
     card.className = "card tournament-card";
 
     const name =
         tournament.fullName ||
         tournament.name ||
-        "The Sacrifice Club Tournament";
+        "Chess960 Universe Elite Tournament";
 
-    let statusText = "";
+    const statusLabels = {
+        started: "In progress",
+        created: "Upcoming",
+        finished: "Finished"
+    };
 
-    if (status === "current") {
-        statusText = "In progress";
-    } else if (status === "upcoming") {
-        statusText = "Upcoming";
-    } else {
-        statusText = "Finished";
+    const title = document.createElement("h3");
+    title.textContent = name;
+    card.appendChild(title);
+
+    const statusElement = document.createElement("p");
+    statusElement.className = "tournament-status";
+    statusElement.textContent = statusLabels[status] || status;
+    card.appendChild(statusElement);
+
+    if (tournament.startsAt) {
+        const date = document.createElement("p");
+        date.textContent = formatDate(tournament.startsAt);
+        card.appendChild(date);
     }
 
-    const players =
-        tournament.nbPlayers !== undefined
-            ? `<p>${tournament.nbPlayers} players</p>`
-            : "";
+    if (tournament.seconds) {
+        const duration = document.createElement("p");
+        duration.textContent = formatDuration(tournament.seconds);
+        card.appendChild(duration);
+    }
 
-    const duration =
-        tournament.seconds
-            ? `<p>${formatDuration(tournament.seconds)}</p>`
-            : "";
+    if (tournament.nbPlayers !== undefined) {
+        const players = document.createElement("p");
+        players.textContent = `${tournament.nbPlayers} players`;
+        card.appendChild(players);
+    }
 
-    const startDate =
-        tournament.startsAt
-            ? `<p>${formatDate(tournament.startsAt)}</p>`
-            : "";
+    const link = document.createElement("a");
+    link.className = "button";
+    link.href = type === "arena"
+        ? `https://lichess.org/tournament/${encodeURIComponent(tournament.id)}`
+        : `https://lichess.org/swiss/${encodeURIComponent(tournament.id)}`;
 
-    const tournamentUrl =
-        type === "arena"
-            ? `https://lichess.org/tournament/${tournament.id}`
-            : `https://lichess.org/swiss/${tournament.id}`;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Open on Lichess";
 
-    card.innerHTML = `
-        <h3>${name}</h3>
-
-        <p class="tournament-status">
-            ${statusText}
-        </p>
-
-        ${startDate}
-
-        ${duration}
-
-        ${players}
-
-        <a
-            class="button"
-            href="${tournamentUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Open on Lichess
-        </a>
-    `;
+    card.appendChild(link);
 
     return card;
 }
@@ -137,148 +130,37 @@ function createTournamentCard(tournament, type, status) {
 // DISPLAY TOURNAMENTS
 // =====================================
 
-function displayTournaments(
-    tournaments,
-    containerId,
-    type,
-    status
-) {
-    const container =
-        document.getElementById(containerId);
+function displayTournaments(tournaments, containerId, type, status) {
+    const container = document.getElementById(containerId);
 
     if (!container) {
+        console.warn(`Missing HTML container: ${containerId}`);
         return;
     }
 
-    container.innerHTML = "";
+    container.replaceChildren();
 
     if (!tournaments || tournaments.length === 0) {
-        container.innerHTML = `
-            <div class="card empty-card">
-                <p>
-                    No tournaments here right now.
-                </p>
-            </div>
-        `;
+        const emptyCard = document.createElement("div");
+        emptyCard.className = "card empty-card";
 
+        const message = document.createElement("p");
+        message.textContent = "No tournaments here right now.";
+
+        emptyCard.appendChild(message);
+        container.appendChild(emptyCard);
         return;
     }
 
     tournaments.forEach(tournament => {
+        if (!tournament.id) {
+            return;
+        }
+
         container.appendChild(
-            createTournamentCard(
-                tournament,
-                type,
-                status
-            )
+            createTournamentCard(tournament, type, status)
         );
     });
-}
-
-// =====================================
-// LOAD ARENA
-// =====================================
-
-async function loadArena() {
-    try {
-        const current =
-            await loadNDJSON(
-                `https://lichess.org/api/team/${TEAM_ID}/arena?max=30&status=started`
-            );
-
-        const upcoming =
-            await loadNDJSON(
-                `https://lichess.org/api/team/${TEAM_ID}/arena?max=30&status=created`
-            );
-
-        const finished =
-            await loadNDJSON(
-                `https://lichess.org/api/team/${TEAM_ID}/arena?max=30&status=finished`
-            );
-
-        displayTournaments(
-            current,
-            "arenaCurrent",
-            "arena",
-            "current"
-        );
-
-        displayTournaments(
-            upcoming,
-            "arenaUpcoming",
-            "arena",
-            "upcoming"
-        );
-
-        displayTournaments(
-            finished,
-            "arenaFinished",
-            "arena",
-            "finished"
-        );
-    } catch (error) {
-        console.error(
-            "Arena error:",
-            error
-        );
-
-        showError("arenaCurrent");
-        showError("arenaUpcoming");
-        showError("arenaFinished");
-    }
-}
-
-// =====================================
-// LOAD SWISS
-// =====================================
-
-async function loadSwiss() {
-    try {
-        const current =
-            await loadNDJSON(
-                `https://lichess.org/api/team/${TEAM_ID}/swiss?max=30&status=started`
-            );
-
-        const upcoming =
-            await loadNDJSON(
-                `https://lichess.org/api/team/${TEAM_ID}/swiss?max=30&status=created`
-            );
-
-        const finished =
-            await loadNDJSON(
-                `https://lichess.org/api/team/${TEAM_ID}/swiss?max=30&status=finished`
-            );
-
-        displayTournaments(
-            current,
-            "swissCurrent",
-            "swiss",
-            "current"
-        );
-
-        displayTournaments(
-            upcoming,
-            "swissUpcoming",
-            "swiss",
-            "upcoming"
-        );
-
-        displayTournaments(
-            finished,
-            "swissFinished",
-            "swiss",
-            "finished"
-        );
-    } catch (error) {
-        console.error(
-            "Swiss error:",
-            error
-        );
-
-        showError("swissCurrent");
-        showError("swissUpcoming");
-        showError("swissFinished");
-    }
 }
 
 // =====================================
@@ -286,29 +168,92 @@ async function loadSwiss() {
 // =====================================
 
 function showError(containerId) {
-    const container =
-        document.getElementById(containerId);
+    const container = document.getElementById(containerId);
 
     if (!container) {
         return;
     }
 
-    container.innerHTML = `
-        <div class="card">
-            <p>
-                Unable to load tournaments.
-            </p>
+    container.replaceChildren();
 
-            <p>
-                Please try again later.
-            </p>
-        </div>
-    `;
+    const card = document.createElement("div");
+    card.className = "card error-card";
+
+    const message = document.createElement("p");
+    message.textContent =
+        "Unable to load tournaments. Please try again later.";
+
+    card.appendChild(message);
+    container.appendChild(card);
+}
+
+// =====================================
+// LOAD ONE TOURNAMENT CATEGORY
+// =====================================
+
+async function loadCategory(type, status, containerId) {
+    try {
+        const url =
+            `${API_URL}/${type}?max=30&status=${status}`;
+
+        console.log("Loading team tournaments:", url);
+
+        const tournaments = await loadNDJSON(url);
+
+        console.log(
+            `${type} / ${status} / ${TEAM_ID}:`,
+            tournaments
+        );
+
+        displayTournaments(
+            tournaments,
+            containerId,
+            type,
+            status
+        );
+    } catch (error) {
+        console.error(
+            `Error loading ${type} (${status}):`,
+            error
+        );
+
+        showError(containerId);
+    }
+}
+
+// =====================================
+// LOAD ARENA TOURNAMENTS
+// =====================================
+
+async function loadArena() {
+    await Promise.all([
+        loadCategory("arena", "started", "arenaCurrent"),
+        loadCategory("arena", "created", "arenaUpcoming"),
+        loadCategory("arena", "finished", "arenaFinished")
+    ]);
+}
+
+// =====================================
+// LOAD SWISS TOURNAMENTS
+// =====================================
+
+async function loadSwiss() {
+    await Promise.all([
+        loadCategory("swiss", "started", "swissCurrent"),
+        loadCategory("swiss", "created", "swissUpcoming"),
+        loadCategory("swiss", "finished", "swissFinished")
+    ]);
 }
 
 // =====================================
 // START
 // =====================================
 
-loadArena();
-loadSwiss();
+async function loadAllTournaments() {
+    await Promise.all([
+        loadArena(),
+        loadSwiss()
+    ]);
+}
+
+document.addEventListener("DOMContentLoaded", loadAllTournaments);
